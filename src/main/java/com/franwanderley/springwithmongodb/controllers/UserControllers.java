@@ -1,7 +1,9 @@
 package com.franwanderley.springwithmongodb.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.franwanderley.springwithmongodb.dto.UserDTO;
 import com.franwanderley.springwithmongodb.model.User;
 import com.franwanderley.springwithmongodb.service.UserService;
 
@@ -18,8 +20,10 @@ public class UserControllers {
    private UserService service;
 
    @RequestMapping(method = RequestMethod.GET)
-   public ResponseEntity<List<User>> findAll() {
+   public ResponseEntity<List<UserDTO>> findAll() {
       List<User> users = service.findAll();
-      return ResponseEntity.ok(users);
+      List<UserDTO> usersDto = users.stream().map(u -> new UserDTO(u))
+         .collect(Collectors.toList());
+      return ResponseEntity.ok(usersDto);
    }
 }
