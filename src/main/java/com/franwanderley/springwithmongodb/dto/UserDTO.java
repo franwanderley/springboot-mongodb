@@ -43,4 +43,8 @@ public class UserDTO implements Serializable {
 
    public UserDTO() {
    }
+
+   public User converter() {
+      return new User(this.id, this.email, this.name);
+   }
 }
