@@ -1,5 +1,6 @@
 package com.franwanderley.springwithmongodb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.franwanderley.springwithmongodb.model.Post;
@@ -19,5 +20,9 @@ public class PostService {
       return obj.orElseThrow(() -> 
           new ObjectNotFoundException("id "+ id + " não encontrado"
       ));
-  }
+    }
+    
+    public List<Post> findByTitle(String title) {
+        return repo.findByTitleContainingIgnoreCase(title);
+    }
 }
