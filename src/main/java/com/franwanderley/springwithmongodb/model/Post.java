@@ -1,52 +1,59 @@
 package com.franwanderley.springwithmongodb.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+
+import com.franwanderley.springwithmongodb.dto.AuthorDTO;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "user")
-public class User implements Serializable {
+@Document
+public class Post implements Serializable {
    private static final long serialVersionUID = 1L;
-
    @Id
    private String id;
-   private String email;
-   private String name;
-   @DBRef(lazy = true)
-   private List<Post> post = new ArrayList<>();
+   private Date date;
+   private String title;
+   private String body; 
+   private AuthorDTO author;
 
-   public User(String id, String email, String name) {
+   public Post(String id, Date date, String title, String body, AuthorDTO author) {
       this.id = id;
-      this.email = email;
-      this.name = name;
+      this.date = date;
+      this.title = title;
+      this.body = body;
+      this.author = author;
    }
-   public List<Post> getPost() {
-      return post;
+   public AuthorDTO getAuthor() {
+      return author;
    }
-   public void setPost(List<Post> post) {
-      this.post = post;
+   public void setAuthor(AuthorDTO author) {
+      this.author = author;
    }
-   public User() {
+   public Post() {
    }
 
    public String getId() {
       return id;
    }
-   public String getName() {
-      return name;
+   public String getBody() {
+      return body;
    }
-   public void setName(String name) {
-      this.name = name;
+   public void setBody(String body) {
+      this.body = body;
    }
-   public String getEmail() {
-      return email;
+   public String getTitle() {
+      return title;
    }
-   public void setEmail(String email) {
-      this.email = email;
+   public void setTitle(String title) {
+      this.title = title;
+   }
+   public Date getDate() {
+      return date;
+   }
+   public void setDate(Date date) {
+      this.date = date;
    }
    public void setId(String id) {
       this.id = id;
@@ -66,7 +73,7 @@ public class User implements Serializable {
          return false;
       if(getClass() == obj.getClass())
          return false;
-      User other = (User) obj;
+      Post other = (Post) obj;
       if(id == null){
          if(other.id == null)
          return false;

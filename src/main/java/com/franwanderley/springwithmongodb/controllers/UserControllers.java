@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.franwanderley.springwithmongodb.dto.UserDTO;
+import com.franwanderley.springwithmongodb.model.Post;
 import com.franwanderley.springwithmongodb.model.User;
 import com.franwanderley.springwithmongodb.service.UserService;
 
@@ -54,5 +55,10 @@ public class UserControllers {
       user.setId(id);
       service.update(user);
       return ResponseEntity.noContent().build();
+   }
+   @RequestMapping(value = "/{id}/post", method =  RequestMethod.GET)
+   public ResponseEntity<List<Post>> findPostByUserId(@PathVariable String id) {
+      User user = service.findById(id);
+      return ResponseEntity.ok().body(user.getPost());
    }
 }
